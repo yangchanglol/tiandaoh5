@@ -40,31 +40,51 @@
             ctx.closePath();
         }
         
-        // 点击事件
-        canvas.addEventListener('click', function(e) {
+        // 通用获取坐标函数
+        function getCoordinates(e) {
             const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            drawCircle(x, y);
+            if (e.touches && e.touches[0]) {
+                // 触摸事件
+                return {
+                    x: e.touches[0].clientX - rect.left,
+                    y: e.touches[0].clientY - rect.top
+                };
+            } else {
+                // 鼠标事件
+                return {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
+                };
+            }
+        }
+        
+        // 点击事件 - 使用 touchstart 替代 click 以消除 300ms 延迟
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // 阻止默认行为
+            const coords = getCoordinates(e);
+            drawCircle(coords.x, coords.y);
+        }, { passive: false });
+        
+        // 鼠标点击事件
+        canvas.addEventListener('click', function(e) {
+            const coords = getCoordinates(e);
+            drawCircle(coords.x, coords.y);
         });
         
         // 滑动事件
         let isDragging = false;
         
+        // 鼠标事件
         canvas.addEventListener('mousedown', function(e) {
             isDragging = true;
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            drawCircle(x, y);
+            const coords = getCoordinates(e);
+            drawCircle(coords.x, coords.y);
         });
         
         canvas.addEventListener('mousemove', function(e) {
             if (isDragging) {
-                const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                drawCircle(x, y);
+                const coords = getCoordinates(e);
+                drawCircle(coords.x, coords.y);
             }
         });
         
@@ -73,6 +93,17 @@
         });
         
         canvas.addEventListener('mouseleave', function() {
+            isDragging = false;
+        });
+        
+        // 触摸事件
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault(); // 阻止默认行为（如页面滚动）
+            const coords = getCoordinates(e);
+            drawCircle(coords.x, coords.y);
+        }, { passive: false });
+        
+        canvas.addEventListener('touchend', function() {
             isDragging = false;
         });
     </script>
