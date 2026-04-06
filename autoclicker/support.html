@@ -1,210 +1,794 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Support - Sudoku Game: Classic Sudoku</title>
+    <meta name="description"
+        content="AutoClicker Automation Tool helps you automate repeated taps inside a built-in browser with adjustable timing, draggable target points, and quick start-stop controls.">
+    <title>Support - AutoClicker Automation Tool</title>
     <style>
+        :root {
+            --bg: #f3f8fb;
+            --surface: rgba(255, 255, 255, 0.88);
+            --surface-strong: #ffffff;
+            --text: #173042;
+            --muted: #5d7282;
+            --line: rgba(23, 48, 66, 0.1);
+            --primary: #0f9d8a;
+            --primary-deep: #0d7f72;
+            --accent: #ffb84d;
+            --hero-a: #dff8f3;
+            --hero-b: #fff4dc;
+            --shadow: 0 24px 60px rgba(15, 53, 78, 0.12);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --max-width: 1120px;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f7;
+            margin: 0;
+            font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(15, 157, 138, 0.12), transparent 32%),
+                radial-gradient(circle at top right, rgba(255, 184, 77, 0.16), transparent 24%),
+                linear-gradient(180deg, #f8fcfd 0%, var(--bg) 52%, #eef6f8 100%);
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .app-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            margin: 0 auto 20px;
+
+        img {
             display: block;
+            max-width: 100%;
         }
-        
+
+        .page-shell {
+            width: min(calc(100% - 32px), var(--max-width));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(14px);
+            background: rgba(243, 248, 251, 0.8);
+            border-bottom: 1px solid rgba(23, 48, 66, 0.06);
+        }
+
+        .topbar-inner {
+            width: min(calc(100% - 32px), var(--max-width));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .brand-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), #57c7b8);
+            padding: 6px;
+            box-shadow: 0 10px 24px rgba(15, 157, 138, 0.25);
+        }
+
+        .brand span {
+            font-size: 1rem;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .nav a:hover {
+            color: var(--primary-deep);
+        }
+
+        .hero {
+            padding: 56px 0 32px;
+        }
+
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            padding: 44px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, var(--hero-a), var(--hero-b));
+            box-shadow: var(--shadow);
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -120px auto;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.34);
+            filter: blur(6px);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--primary-deep);
+            font-size: 0.84rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
         h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 10px;
+            margin: 18px 0 16px;
+            font-size: clamp(2.3rem, 4vw, 4.4rem);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
         }
-        
-        .app-subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
+
+        .hero p {
+            margin: 0;
+            max-width: 620px;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: rgba(23, 48, 66, 0.84);
         }
-        
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 14px 30px rgba(15, 157, 138, 0.22);
+        }
+
+        .button-secondary {
+            border: 1px solid rgba(23, 48, 66, 0.12);
+            background: rgba(255, 255, 255, 0.78);
+            color: var(--text);
+        }
+
+        .hero-panel {
+            position: relative;
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            align-self: end;
+        }
+
+        .panel-label {
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .mock-browser {
+            margin-top: 14px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #f7fbfd;
+            border: 1px solid rgba(23, 48, 66, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .mock-toolbar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 12px 14px;
+            background: #ecf4f7;
+            border-bottom: 1px solid rgba(23, 48, 66, 0.06);
+        }
+
+        .mock-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #b4c8d4;
+        }
+
+        .mock-address {
+            flex: 1;
+            height: 32px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(23, 48, 66, 0.08);
+        }
+
+        .mock-body {
+            position: relative;
+            min-height: 260px;
+            padding: 18px;
+            background:
+                linear-gradient(180deg, rgba(15, 157, 138, 0.08), transparent 45%),
+                #ffffff;
+        }
+
+        .mock-card {
+            border-radius: 18px;
+            background: #fff;
+            border: 1px solid rgba(23, 48, 66, 0.08);
+            padding: 18px;
+            box-shadow: 0 16px 34px rgba(15, 53, 78, 0.08);
+        }
+
+        .mock-lines {
+            display: grid;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .mock-line {
+            height: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #d9e7ef, #eef5f8);
+        }
+
+        .tap-target {
+            position: absolute;
+            right: 26px;
+            bottom: 28px;
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            background: rgba(15, 157, 138, 0.14);
+            border: 2px dashed rgba(15, 157, 138, 0.6);
+            display: grid;
+            place-items: center;
+        }
+
+        .tap-target::before,
+        .tap-target::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            inset: 10px;
+            border: 2px solid rgba(15, 157, 138, 0.28);
+        }
+
+        .tap-target::after {
+            inset: 22px;
+            background: rgba(15, 157, 138, 0.7);
+            border: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            padding: 18px 20px;
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: 0 16px 30px rgba(15, 53, 78, 0.06);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
         section {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 28px 0;
         }
-        
-        h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #1d1d1f;
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin-bottom: 22px;
         }
-        
-        h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 20px 0 10px;
-            color: #1d1d1f;
+
+        .section-head h2 {
+            margin: 0;
+            font-size: clamp(1.7rem, 2vw, 2.6rem);
+            letter-spacing: -0.03em;
         }
-        
-        p {
-            margin-bottom: 15px;
-            color: #424245;
+
+        .section-head p {
+            margin: 0;
+            max-width: 600px;
+            color: var(--muted);
+            line-height: 1.8;
         }
-        
-        .faq-item {
-            margin-bottom: 20px;
+
+        .feature-grid,
+        .support-grid,
+        .faq-grid {
+            display: grid;
+            gap: 18px;
         }
-        
-        .faq-question {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #1d1d1f;
+
+        .feature-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
-        
-        .faq-answer {
-            color: #424245;
-            padding-left: 20px;
+
+        .support-grid {
+            grid-template-columns: 1.15fr 0.85fr;
         }
-        
-        .contact-info {
-            background-color: #f2f2f7;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
+
+        .faq-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
-        
-        .contact-info p {
-            margin-bottom: 10px;
+
+        .card {
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 18px 40px rgba(15, 53, 78, 0.07);
         }
-        
-        .contact-info strong {
-            color: #1d1d1f;
+
+        .card h3 {
+            margin: 0 0 12px;
+            font-size: 1.25rem;
         }
-        
-        .troubleshooting-steps {
-            list-style-type: decimal;
-            padding-left: 20px;
-            margin-bottom: 20px;
+
+        .card p,
+        .card li {
+            color: var(--muted);
+            line-height: 1.8;
         }
-        
-        .troubleshooting-steps li {
-            margin-bottom: 10px;
-            color: #424245;
+
+        .card ul {
+            margin: 0;
+            padding-left: 18px;
         }
-        
-        footer {
+
+        .feature-kicker {
+            display: inline-flex;
+            margin-bottom: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(15, 157, 138, 0.1);
+            color: var(--primary-deep);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .timeline-step {
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            gap: 14px;
+            align-items: start;
+        }
+
+        .timeline-step strong {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--primary), #63d7c7);
+            color: #fff;
+        }
+
+        .contact-block {
+            background: linear-gradient(135deg, rgba(15, 157, 138, 0.1), rgba(255, 184, 77, 0.12));
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .contact-item {
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(23, 48, 66, 0.08);
+        }
+
+        .contact-item span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 4px;
+        }
+
+        .footer {
+            padding: 22px 0 52px;
+            color: var(--muted);
             text-align: center;
-            margin-top: 40px;
-            padding: 20px 0;
-            color: #86868b;
-            font-size: 14px;
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 960px) {
+            .hero-card,
+            .support-grid,
+            .feature-grid,
+            .faq-grid,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .section-head {
+                align-items: start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .hero {
+                padding-top: 28px;
+            }
+
+            .hero-card {
+                padding: 24px;
+            }
+
+            h1 {
+                line-height: 1.02;
+            }
+
+            .page-shell {
+                width: min(calc(100% - 20px), var(--max-width));
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <img src="imgs/logo.png" alt="Sudoku Game Logo" class="app-logo">
-            <h1>Sudoku Game: Classic Sudoku</h1>
-            <p class="app-subtitle">Professional Sudoku game app providing classic Sudoku experience</p>
-        </header>
-        
-        <section>
-            <h2>App Introduction</h2>
-            <p>Sudoku Game: Classic Sudoku is a feature-rich Sudoku game app that provides you with the most authentic Sudoku experience. Our app includes all the core features of Sudoku games, allowing you to enjoy Sudoku anytime, anywhere.</p>
-            <h3>Key Features</h3>
-            <p>• Multiple difficulty levels (Easy, Medium, Hard, Expert, Master, Extreme)</p>
-            <p>• Real-time error hints</p>
-            <p>• Note-taking feature for recording candidate numbers</p>
-            <p>• Save game progress</p>
-            <p>• Game timer</p>
-            <p>• Unfinished game records for easy continuation</p>
-            <p>• Rich preset features that can be enabled or disabled in any combination</p>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="#top">
+                <img class="brand-badge" src="imgs/logo.png" alt="AutoClicker Automation Tool logo">
+                <span>AutoClicker Automation Tool</span>
+            </a>
+            <nav class="nav" aria-label="Primary navigation">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top" class="page-shell">
+        <section class="hero">
+            <div class="hero-card">
+                <div>
+                    <div class="eyebrow">Built for focused automation</div>
+                    <h1>Repeat taps with less effort and more control.</h1>
+                    <p>
+                        AutoClicker Automation Tool is designed for users who need a dependable way to handle repeated tap actions.
+                        Everything runs inside the app's built-in browser, giving you a contained automation space that
+                        feels straightforward, responsive, and easier to manage.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#contact">Get Support</a>
+                        <a class="button button-secondary" href="#features">Explore Features</a>
+                    </div>
+                    <div class="stats" aria-label="Highlights">
+                        <div class="stat">
+                            <strong>Precise timing</strong>
+                            <span>Adjust tap rhythm to match fast loops or slower repeated actions.</span>
+                        </div>
+                        <div class="stat">
+                            <strong>Local operation</strong>
+                            <span>Automation stays on your device without relying on remote processing.</span>
+                        </div>
+                        <div class="stat">
+                            <strong>Quick control</strong>
+                            <span>Start, stop, and reposition with a setup that stays easy to follow.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="hero-panel" aria-label="App preview">
+                    <div class="panel-label">In-app automation workspace</div>
+                    <div class="mock-browser">
+                        <div class="mock-toolbar">
+                            <span class="mock-dot"></span>
+                            <span class="mock-dot"></span>
+                            <span class="mock-dot"></span>
+                            <div class="mock-address"></div>
+                        </div>
+                        <div class="mock-body">
+                            <div class="mock-card">
+                                <strong>Browser Session Ready</strong>
+                                <div class="mock-lines">
+                                    <div class="mock-line" style="width: 92%;"></div>
+                                    <div class="mock-line" style="width: 84%;"></div>
+                                    <div class="mock-line" style="width: 76%;"></div>
+                                    <div class="mock-line" style="width: 66%;"></div>
+                                </div>
+                            </div>
+                            <div class="tap-target" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </section>
-        
-        <section>
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <div class="faq-question">How to start a new game?</div>
-                <div class="faq-answer">On the main screen, select a difficulty level to start a new Sudoku game.</div>
+
+        <section id="features">
+            <div class="section-head">
+                <div>
+                    <h2>Core Features</h2>
+                </div>
+                <p>
+                    The app focuses on a small set of practical tools that make repetitive tapping easier to configure,
+                    easier to monitor, and easier to interrupt the moment you need to.
+                </p>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">Will game progress be automatically saved?</div>
-                <div class="faq-answer">When you exit the page, the app will pop up a prompt asking you to save your game progress (you can also choose not to save), ensuring you can continue the game at any time. You can save progress for multiple new games.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How to use the note-taking feature?</div>
-                <div class="faq-answer">On the game screen, click the note button to enter note mode, and click again to exit note mode. The note-taking feature helps you record candidate numbers and improve solving efficiency.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How to view game statistics?</div>
-                <div class="faq-answer">You can view statistics on the main screen, game history, and settings page. The dimensions of statistics vary.</div>
+
+            <div class="feature-grid">
+                <article class="card">
+                    <div class="feature-kicker">Timing</div>
+                    <h3>Fine-tuned interval control</h3>
+                    <p>
+                        Build an automation rhythm that fits the task in front of you. Whether you need quick repeats or
+                        a more measured pace, timing can be adjusted with enough precision to stay useful across
+                        different scenarios.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="feature-kicker">Placement</div>
+                    <h3>Drag the tap point where it matters</h3>
+                    <p>
+                        A floating control helps you position the tap target directly inside the built-in browser view,
+                        so you can line up the exact spot before a sequence begins.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="feature-kicker">Control</div>
+                    <h3>Start and stop instantly</h3>
+                    <p>
+                        The main controls are intentionally simple. When you are ready, launch a tap sequence in one
+                        step. When the task is done, stop it just as quickly without digging through menus.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="feature-kicker">Browser</div>
+                    <h3>Runs within the app's built-in browser</h3>
+                    <p>
+                        Automation is limited to the in-app browser environment. This gives the feature a clearer scope
+                        and helps keep your workflow contained to the space designed for it.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="feature-kicker">Performance</div>
+                    <h3>Tap speed testing included</h3>
+                    <p>
+                        Use the speed test tool to check how quickly you can tap, compare attempts, and keep an eye on
+                        your best results over time.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="feature-kicker">Use Cases</div>
+                    <h3>Built for repeat-heavy workflows</h3>
+                    <p>
+                        AutoClicker Automation Tool can support repetitive interactions in browser-based tasks, app testing routines,
+                        lightweight productivity flows, and other situations where consistent repeated tapping saves time.
+                    </p>
+                </article>
             </div>
         </section>
-        
-        <section>
-            <h2>Troubleshooting</h2>
-            <p>If you encounter any issues during use, you can try the following steps:</p>
-            <ol class="troubleshooting-steps">
-                <li>Close the app and reopen it</li>
-                <li>Check if your device has enough storage space</li>
-                <li>Ensure your device's operating system is up to date</li>
-                <li>Try uninstalling and reinstalling the app</li>
-            </ol>
-            <h3>Common Issues and Solutions</h3>
-            <div class="faq-item">
-                <div class="faq-question">App crashes or becomes unresponsive</div>
-                <div class="faq-answer">Please try closing the app and reopening it. If the problem persists, please uninstall and reinstall the app.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Game progress lost</div>
-                <div class="faq-answer">If your game progress is lost, it may be due to insufficient storage space or the app being forcefully closed. We recommend backing up your device data regularly.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Unable to download or update the app</div>
-                <div class="faq-answer">Please check your network connection, ensure your Apple ID is logged in, and that you have enough storage space.</div>
+
+        <section id="how-it-works">
+            <div class="support-grid">
+                <article class="card">
+                    <div class="section-head" style="margin-bottom: 16px; display: block;">
+                        <h2 style="margin-bottom: 10px;">How It Works</h2>
+                        <p>Getting started is intentionally lightweight, so you can move from setup to action without a long learning curve.</p>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-step">
+                            <strong>1</strong>
+                            <div>
+                                <h3>Open the built-in browser</h3>
+                                <p>Navigate to the supported page or task you want to work with inside the app.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <strong>2</strong>
+                            <div>
+                                <h3>Place the tap target</h3>
+                                <p>Move the floating control until the tap location sits exactly where you need it.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <strong>3</strong>
+                            <div>
+                                <h3>Set the interval</h3>
+                                <p>Choose a tapping pace that matches the action you want to repeat.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <strong>4</strong>
+                            <div>
+                                <h3>Run and monitor</h3>
+                                <p>Start the sequence, observe the behavior, and stop it anytime with the control button.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card contact-block">
+                    <h3>Why users choose this setup</h3>
+                    <ul>
+                        <li>Contained automation flow inside a browser view built into the app.</li>
+                        <li>Reliable controls that prioritize clarity over complexity.</li>
+                        <li>On-device operation for a more direct and self-contained experience.</li>
+                        <li>Useful for both task repetition and personal tapping practice.</li>
+                    </ul>
+                </article>
             </div>
         </section>
-        
-        <section>
-            <h2>Contact Us</h2>
-            <p>If you have any questions or suggestions, please feel free to contact us:</p>
-            <div class="contact-info">
-                <p><strong>Email:</strong> tiandao85@126.com</p>
-                <p><strong>Working hours:</strong> Monday to Friday, 9:30-17:00 (China Standard Time)</p>
-                <p><strong>Response time:</strong> We will reply to your email within 1-2 business days</p>
+
+        <section id="faq">
+            <div class="section-head">
+                <div>
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                <p>
+                    These are the questions users most often ask when they want to understand what the app does and how
+                    the automation scope is defined.
+                </p>
             </div>
-            <p>You can also leave us a review on the App Store. Your feedback is very important to us!</p>
+
+            <div class="faq-grid">
+                <article class="card">
+                    <h3>Does the automation run across my whole device?</h3>
+                    <p>
+                        No. The auto tap feature is designed to work within the app's own browser environment rather than
+                        acting across unrelated system areas.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Is an internet connection required?</h3>
+                    <p>
+                        The automation logic itself runs locally on the device. Some pages opened in the built-in browser
+                        may still require network access, depending on the site or task you choose.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Can I change the tapping speed?</h3>
+                    <p>
+                        Yes. The app includes adjustable timing controls so you can choose an interval that matches the
+                        task instead of being limited to a fixed default pace.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>What is the tap speed test for?</h3>
+                    <p>
+                        It offers a quick way to measure your own tapping performance, compare sessions, and keep track
+                        of your strongest attempts.
+                    </p>
+                </article>
+            </div>
         </section>
-        
-        <footer>
-            <p>© 2026 Sudoku Game: Classic Sudoku. All rights reserved.</p>
-        </footer>
-    </div>
+
+        <section id="contact">
+            <div class="support-grid">
+                <article class="card">
+                    <div class="section-head" style="margin-bottom: 16px; display: block;">
+                        <h2 style="margin-bottom: 10px;">Support</h2>
+                        <p>If you need help with setup, feature behavior, or general questions, we are happy to assist.</p>
+                    </div>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span>Email</span>
+                            <a href="mailto:tiandao85@126.com">tiandao85@126.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>What to include</span>
+                            <div>Your device model, OS version, app version, and a short description of the issue.</div>
+                        </div>
+                        <div class="contact-item">
+                            <span>Response focus</span>
+                            <div>Setup guidance, troubleshooting steps, and clarification about feature scope.</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3>Best practices for faster support</h3>
+                    <ul>
+                        <li>Tell us where the issue happens, such as the built-in browser or the speed test view.</li>
+                        <li>Describe the expected behavior and what actually happened.</li>
+                        <li>Share screenshots if the interface appears different from normal.</li>
+                        <li>Include repeat steps if the problem happens consistently.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer page-shell">
+        <p>AutoClicker Automation Tool Support Page</p>
+        <p>For privacy details, see <a href="privacy.html">Privacy Policy</a>. For usage terms, see <a href="term.html">Terms &amp; Conditions</a>.</p>
+    </footer>
 </body>
+
 </html>
